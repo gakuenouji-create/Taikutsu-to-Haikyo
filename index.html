@@ -6,23 +6,26 @@
   <title>退屈と廃墟</title>
   <style>
     :root{
-      --text:#f3f0ff;
-      --muted:#b9b3d6;
+      --bg:#05060a;
+      --panel:rgba(9,12,18,.78);
+      --ink:#f4f0ff;
+      --ink2:#bdb6d9;
       --pink:#ff4fd8;
       --blue:#53c7ff;
-      --line:rgba(255,255,255,.09);
+      --violet:#9b6dff;
+      --line:rgba(255,255,255,.10);
+      --glow:0 0 12px rgba(255,79,216,.28), 0 0 18px rgba(83,199,255,.18);
     }
     *{box-sizing:border-box}
     html,body{
       margin:0;
-      padding:0;
-      width:100%;
       min-height:100%;
       background:
-        radial-gradient(circle at 50% 20%, rgba(255,79,216,.14), transparent 28%),
-        radial-gradient(circle at 80% 70%, rgba(83,199,255,.11), transparent 25%),
-        linear-gradient(180deg, #05070b 0%, #090c12 55%, #040507 100%);
-      color:var(--text);
+        radial-gradient(circle at 50% 14%, rgba(255,79,216,.13), transparent 24%),
+        radial-gradient(circle at 86% 72%, rgba(83,199,255,.12), transparent 25%),
+        radial-gradient(circle at 12% 82%, rgba(155,109,255,.09), transparent 24%),
+        linear-gradient(180deg,#05060a 0%,#080b11 52%,#040507 100%);
+      color:var(--ink);
       font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
       overflow-x:hidden;
     }
@@ -32,14 +35,7 @@
       inset:0;
       pointer-events:none;
       background:
-        linear-gradient(rgba(255,255,255,.025), rgba(255,255,255,0) 35%),
-        repeating-linear-gradient(
-          180deg,
-          rgba(255,255,255,.018) 0px,
-          rgba(255,255,255,.018) 1px,
-          transparent 1px,
-          transparent 4px
-        );
+        repeating-linear-gradient(180deg, rgba(255,255,255,.018) 0px, rgba(255,255,255,.018) 1px, transparent 1px, transparent 4px);
       opacity:.22;
     }
     .noise{
@@ -47,7 +43,7 @@
       inset:0;
       pointer-events:none;
       opacity:.07;
-      background-image:radial-gradient(circle, rgba(255,255,255,.6) 0.6px, transparent 0.7px);
+      background-image:radial-gradient(circle, rgba(255,255,255,.65) .6px, transparent .7px);
       background-size:14px 14px;
     }
     .wrap{
@@ -55,37 +51,36 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:24px;
+      padding:22px;
     }
     .screen{
-      width:min(100%, 520px);
-      min-height:76vh;
+      width:min(100%,540px);
+      min-height:78vh;
       border:1px solid var(--line);
-      background:rgba(6,8,14,.58);
+      background:rgba(6,8,14,.62);
       backdrop-filter:blur(8px);
       box-shadow:
-        0 0 0 1px rgba(255,255,255,.02) inset,
-        0 0 40px rgba(0,0,0,.45),
+        0 0 0 1px rgba(255,255,255,.025) inset,
+        0 0 46px rgba(0,0,0,.48),
         0 0 90px rgba(83,199,255,.08),
-        0 0 120px rgba(255,79,216,.08);
+        0 0 118px rgba(255,79,216,.08);
       position:relative;
       overflow:hidden;
     }
-    .screen::before,
-    .screen::after{
+    .screen::before,.screen::after{
       content:"";
       position:absolute;
-      width:180px;
-      height:180px;
+      width:190px;
+      height:190px;
       border-radius:50%;
-      filter:blur(42px);
+      filter:blur(46px);
       opacity:.20;
       pointer-events:none;
     }
-    .screen::before{top:-40px; right:-40px; background:var(--pink);}
-    .screen::after{left:-40px; bottom:-40px; background:var(--blue);}
-    .view{
-      min-height:76vh;
+    .screen::before{top:-50px;right:-50px;background:var(--pink)}
+    .screen::after{left:-50px;bottom:-50px;background:var(--blue)}
+    #view{
+      min-height:78vh;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -93,114 +88,90 @@
       position:relative;
       z-index:1;
     }
-    .start{
-      text-align:center;
+
+    .title-page{
       width:100%;
+      text-align:center;
+      padding:18px 0;
+    }
+    .logo-box{
+      margin:0 auto 22px;
+      width:min(86%,360px);
+      padding:24px 18px 26px;
+      border:1px solid rgba(255,255,255,.28);
+      box-shadow:
+        0 0 16px rgba(255,255,255,.12),
+        0 0 34px rgba(255,79,216,.24),
+        0 0 56px rgba(83,199,255,.18),
+        inset 0 0 22px rgba(255,255,255,.035);
+      background:rgba(255,255,255,.018);
     }
     .title{
       margin:0;
-      font-size:clamp(2.8rem, 13vw, 4.6rem);
-      line-height:1.08;
-      letter-spacing:.1em;
-      font-weight:700;
+      font-size:clamp(2.35rem,11vw,4.15rem);
+      line-height:1.12;
+      letter-spacing:.08em;
       color:#fff8fe;
       text-shadow:
-        0 0 6px rgba(255,255,255,.8),
-        0 0 14px rgba(255,255,255,.45),
-        0 0 26px rgba(255,79,216,.70),
-        0 0 48px rgba(255,79,216,.55),
-        0 0 74px rgba(83,199,255,.35);
-      animation:flicker 5.6s infinite;
+        0 0 6px rgba(255,255,255,.82),
+        0 0 17px rgba(255,79,216,.76),
+        0 0 34px rgba(255,79,216,.58),
+        0 0 70px rgba(83,199,255,.34);
+      animation:flicker 5.7s infinite;
     }
-    .subtitle{
-      margin:22px auto 0;
-      max-width:22em;
-      color:var(--muted);
+    .copy{
+      color:var(--ink2);
       line-height:1.9;
-      font-size:.96rem;
-      text-shadow:0 0 12px rgba(83,199,255,.14);
+      margin:0 auto 28px;
+      max-width:24em;
+      font-size:.95rem;
+      text-shadow:0 0 12px rgba(83,199,255,.15);
     }
-    .divider{
-      width:180px;
-      height:1px;
-      margin:30px auto 28px;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
-      box-shadow:0 0 12px rgba(255,79,216,.55);
-    }
-    .card{
+    .page{
       width:100%;
-      border:1px solid rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.105);
+      background:var(--panel);
       padding:28px 22px;
-      background:rgba(10,12,20,.72);
-      box-shadow:inset 0 0 24px rgba(255,255,255,.02), 0 0 28px rgba(0,0,0,.26);
+      box-shadow:inset 0 0 24px rgba(255,255,255,.02), 0 0 30px rgba(0,0,0,.28);
     }
     .label{
-      color:var(--muted);
+      color:var(--ink2);
       font-size:.78rem;
       letter-spacing:.28em;
       margin-bottom:16px;
+      text-shadow:0 0 10px rgba(83,199,255,.16);
     }
-    h2{
-      margin:0 0 18px;
+    .heading{
+      margin:0 0 20px;
       font-size:1.75rem;
-      line-height:1.35;
-      text-shadow:0 0 14px rgba(83,199,255,.18), 0 0 20px rgba(255,79,216,.18);
+      line-height:1.34;
+      text-shadow:var(--glow);
     }
-    p{
+    .text p{
       margin:0 0 14px;
       line-height:2;
       color:#e9e4fb;
       font-size:.98rem;
     }
-    .muted{
-      color:var(--muted);
-      font-size:.92rem;
-    }
     .bracket{
-      margin:18px 0 0;
+      margin:19px 0 0;
       padding:16px;
       border-left:2px solid rgba(255,79,216,.62);
       background:rgba(255,255,255,.035);
       color:#eee9ff;
-      line-height:1.8;
+      line-height:1.85;
       font-size:.94rem;
+      text-shadow:0 0 10px rgba(255,79,216,.10);
     }
-    .btn{
-      border:none;
-      appearance:none;
-      cursor:pointer;
-      background:transparent;
-      color:#fffafd;
-      border:1px solid rgba(255,255,255,.20);
-      padding:14px 34px;
-      font-size:1rem;
-      letter-spacing:.18em;
-      border-radius:999px;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.03) inset,
-        0 0 18px rgba(255,79,216,.18),
-        0 0 28px rgba(83,199,255,.08);
-      text-shadow:
-        0 0 8px rgba(255,255,255,.45),
-        0 0 20px rgba(255,79,216,.35);
-      transition:.25s ease;
-    }
-    .btn:hover{
-      transform:translateY(-1px) scale(1.01);
-      border-color:rgba(255,255,255,.45);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.04) inset,
-        0 0 24px rgba(255,79,216,.26),
-        0 0 36px rgba(83,199,255,.14);
-    }
-    .button-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:24px;
+    .divider-title{
+      margin:24px 0 12px;
+      color:var(--ink2);
+      font-size:.82rem;
+      letter-spacing:.22em;
+      text-align:center;
     }
     .machine{
-      margin:20px 0;
+      margin:10px 0 20px;
       border:1px solid rgba(255,255,255,.14);
       background:rgba(255,255,255,.025);
       box-shadow:0 0 26px rgba(255,79,216,.08), inset 0 0 18px rgba(83,199,255,.025);
@@ -228,7 +199,7 @@
       white-space:nowrap;
     }
     th{
-      color:var(--muted);
+      color:var(--ink2);
       font-weight:400;
       letter-spacing:.08em;
     }
@@ -236,13 +207,18 @@
       text-align:right;
       font-variant-numeric:tabular-nums;
     }
+    .instruction{
+      color:var(--ink2);
+      font-size:.88rem;
+      margin:18px 0 9px;
+      line-height:1.8;
+    }
     .input{
       width:100%;
-      margin-top:8px;
       padding:14px 15px;
       border-radius:0;
       border:1px solid rgba(255,255,255,.18);
-      background:rgba(0,0,0,.22);
+      background:rgba(0,0,0,.25);
       color:#fff;
       font-size:1rem;
       outline:none;
@@ -252,13 +228,44 @@
       border-color:rgba(255,255,255,.42);
       box-shadow:0 0 20px rgba(255,79,216,.12), inset 0 0 16px rgba(255,255,255,.025);
     }
+    .buttons{
+      display:flex;
+      gap:10px;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:none;
+      appearance:none;
+      cursor:pointer;
+      background:transparent;
+      color:#fffafd;
+      border:1px solid rgba(255,255,255,.22);
+      padding:13px 26px;
+      font-size:.96rem;
+      letter-spacing:.16em;
+      border-radius:999px;
+      min-width:128px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.03) inset,
+        0 0 18px rgba(255,79,216,.18),
+        0 0 28px rgba(83,199,255,.08);
+      text-shadow:0 0 8px rgba(255,255,255,.45),0 0 20px rgba(255,79,216,.35);
+      transition:.25s ease;
+    }
+    .btn.full{width:100%}
+    .btn:hover{
+      transform:translateY(-1px) scale(1.01);
+      border-color:rgba(255,255,255,.45);
+      box-shadow:0 0 0 1px rgba(255,255,255,.04) inset,0 0 24px rgba(255,79,216,.26),0 0 36px rgba(83,199,255,.14);
+    }
     .hint{
       display:none;
       margin-top:14px;
       padding:14px;
       border-left:2px solid rgba(83,199,255,.55);
       background:rgba(255,255,255,.035);
-      color:var(--muted);
+      color:var(--ink2);
       line-height:1.8;
       font-size:.9rem;
     }
@@ -266,20 +273,22 @@
       min-height:1.6em;
       margin-top:14px;
       line-height:1.8;
-      color:var(--muted);
+      color:var(--ink2);
     }
-    .msg.ok{color:#fffafd; text-shadow:0 0 14px rgba(83,199,255,.28);}
-    .msg.ng{color:#ffd7f3;}
+    .msg.ok{color:#fffafd;text-shadow:0 0 14px rgba(83,199,255,.28)}
+    .msg.ng{color:#ffd7f3}
     @keyframes flicker{
-      0%,18%,22%,24%,62%,64%,100%{opacity:1;}
-      19%,23%,63%{opacity:.82;}
-      20%,21%,72%{opacity:.92;}
+      0%,18%,22%,24%,62%,64%,100%{opacity:1}
+      19%,23%,63%{opacity:.82}
+      20%,21%,72%{opacity:.92}
     }
-    @media (max-width:480px){
-      .screen,.view{min-height:82vh}
-      .title{letter-spacing:.06em}
+    @media(max-width:480px){
+      .wrap{padding:16px}
+      .screen,#view{min-height:84vh}
+      #view{padding:28px 18px}
+      .page{padding:25px 18px}
+      .buttons{flex-direction:column}
       .btn{width:100%}
-      .button-row{flex-direction:column}
       table{font-size:.78rem}
       th,td{padding:9px 6px}
     }
@@ -289,167 +298,51 @@
   <div class="noise"></div>
   <div class="wrap">
     <main class="screen">
-      <div class="view" id="view"></div>
+      <div id="view"></div>
     </main>
   </div>
 
   <script>
     const view = document.getElementById("view");
-    let pageIndex = 0;
+    let roomIndex = 0;
 
-    const pages = [
+    const introPages = [
       {
-        label:"PROLOGUE",
+        label:"入場",
         heading:"悪くない人生だった。",
-        body:[
-          "友人がいる。恋人もいる。仕事もある。",
-          "職場ではそれなりに必要とされていて、自分がいないと少し困る場面もある。",
-          "誰かと食事に行けば笑えるし、旅行の写真を見返せば、あの時は楽しかったと思える。"
-        ]
+        body:`<p>友人がいる。恋人もいる。仕事もある。</p><p>職場ではそれなりに必要とされていて、自分がいないと少し困る場面もある。誰かと食事に行けば笑えるし、旅行の写真を見返せば、あの時は楽しかったと思える。</p>`
       },
       {
-        label:"PROLOGUE",
+        label:"入場",
         heading:"それ以上にはならなかった。",
-        body:[
-          "美味しいご飯は、美味しい。",
-          "きれいな景色は、きれい。",
-          "優しい言葉は、ちゃんと優しい。",
-          "それなのに、全部がそこで終わってしまう。"
-        ]
+        body:`<p>美味しいご飯は、美味しい。きれいな景色は、きれい。優しい言葉は、ちゃんと優しい。</p><p>それなのに、全部がそこで終わってしまう。</p><p>足りないものがあるわけじゃない。むしろ、平均のほんの少し上を歩いている自覚があった。</p>`
       },
       {
-        label:"PROLOGUE",
-        heading:"どこにも届かない。",
-        body:[
-          "足りないものがあるわけじゃない。",
-          "むしろ、平均のほんの少し上を歩いている自覚があった。",
-          "不幸ぶるには恵まれすぎている。",
-          "幸せだと言い切るには、どこかがずっと空いている。"
-        ]
-      },
-      {
-        label:"PROLOGUE",
+        label:"入場",
         heading:"つまらない。",
-        body:[
-          "そう思った瞬間、自分のことが少し嫌になる。",
-          "この生活をつまらないと言えてしまうほど、自分は何様なんだろうと思う。",
-          "けれど、そう思うことと、満たされることは別だった。"
-        ]
+        body:`<p>そう思った瞬間、自分のことが少し嫌になる。</p><p>この生活をつまらないと言えてしまうほど、自分は何様なんだろうと思う。けれど、そう思うことと、満たされることは別だった。</p>`
       },
       {
-        label:"GAME CENTER",
-        heading:"閉店前のゲームセンターに寄った。",
-        body:[
-          "行きたかったわけじゃない。",
-          "ただ、まっすぐ帰るのが嫌だった。",
-          "家には帰る場所がある。連絡をくれる人もいる。明日の予定もある。",
-          "悪くない夜だった。",
-          "でも、悪くないだけの夜を、そのまま終わらせるのが少し怖かった。"
-        ]
-      },
+        label:"入口",
+        heading:"ゲームセンター",
+        body:`<p>仕事帰り、閉店前のゲームセンターに寄った。</p><p>行きたかったわけじゃない。ただ、まっすぐ帰るのが嫌だった。</p><p>家には帰る場所がある。連絡をくれる人もいる。明日の予定もある。悪くない夜だった。</p><div class="bracket">でも、悪くないだけの夜を、<br>そのまま終わらせるのが少し怖かった。</div>`
+      }
+    ];
+
+    const rooms = [
       {
-        label:"STAGE 01",
+        label:"第一遊戯室",
         heading:"UFOキャッチャー",
-        body:[
-          "景品は欲しい。",
-          "少なくとも、アームを動かしている間は本当に欲しい。",
-          "爪の角度を見て、重心を読んで、滑り止めの位置を疑って、あと一手で落ちそうなのに落ちないものに、もう一回だけ百円を入れる。"
-        ]
-      },
-      {
-        label:"STAGE 01",
-        heading:"取れたら終わる。",
-        body:[
-          "景品口に落ちた瞬間、熱はすぐに引いていく。",
-          "さっきまであんなに欲しかったものが、袋に入れた途端、ただの物になる。",
-          "家に持ち帰っても開けない。飾らない。たぶん、そのうち忘れる。"
-        ]
-      },
-      {
-        label:"STAGE 01",
-        heading:"取れるまでが、欲しい。",
-        body:[
-          "欲しかったのは、景品そのものじゃなかったのかもしれない。",
-          "取れるかもしれないと思っている時間。",
-          "取れなくて、考えて、もう一度だけ試したくなる数十秒。",
-          "そこにしか、うまく火がつかなかった。"
+        display:"UFOキャッチャー",
+        answer:"もういちど",
+        before:[
+          `<p>店の奥で、UFOキャッチャーだけがまだ光っていた。</p><p>ガラスの内側には、ぬいぐるみや箱物の景品が詰め込まれている。欲しいかと聞かれたら、欲しい。</p>`,
+          `<p>少なくとも、アームを動かしている間は本当に欲しい。</p><p>爪の角度を見て、重心を読んで、滑り止めの位置を疑って、あと一手で落ちそうなのに落ちないものに、もう一回だけ百円を入れる。</p><div class="bracket">取れるかもしれないと思っている時間だけ、<br>身体の奥に少しだけ電気が通る。</div>`,
+          `<p>でも、景品口に落ちた瞬間、熱はすぐに引いていく。</p><p>さっきまであんなに欲しかったものが、袋に入れた途端、ただの物になる。家に持ち帰っても開けない。飾らない。たぶん、そのうち忘れる。</p><p>欲しかったのは、景品そのものじゃなかったのかもしれない。</p>`
         ],
-        next:"謎を見る"
-      }
-    ];
-
-    const afterPages = [
-      {
-        label:"STAGE 01 / CLEAR",
-        heading:"景品口で、何かが落ちる音がした。",
-        body:[
-          "今度は、ちゃんと入っていた。",
-          "さっきまであんなに欲しかったものが、手の中で急に静かになる。",
-          "その代わり、画面に小さく文字が出ている。"
-        ],
-        bracket:"もういちど"
-      },
-      {
-        label:"STAGE 01 / CLEAR",
-        heading:"まだ、終わっていない。",
-        body:[
-          "それを見た瞬間、少しだけ息がしやすくなった。",
-          "取れたことより、次があることの方がずっとよかった。"
-        ],
-        next:"つづく"
-      }
-    ];
-
-    function renderStart(){
-      view.innerHTML = `
-        <section class="start">
-          <h1 class="title">退屈と廃墟</h1>
-          <p class="subtitle">
-            悪くない人生なのに、<br>
-            どこにも届かない夜のために。
-          </p>
-          <div class="divider"></div>
-          <button class="btn" onclick="startStory()">はじめる</button>
-        </section>
-      `;
-    }
-
-    function startStory(){
-      pageIndex = 0;
-      renderPage(pages[pageIndex]);
-    }
-
-    function renderPage(page){
-      view.innerHTML = `
-        <section class="card">
-          <div class="label">${page.label}</div>
-          <h2>${page.heading}</h2>
-          ${page.body.map(t => `<p>${t}</p>`).join("")}
-          ${page.bracket ? `<div class="bracket">${page.bracket}</div>` : ""}
-          <div class="button-row">
-            <button class="btn" onclick="nextPage()">${page.next || "次へ"}</button>
-          </div>
-        </section>
-      `;
-      window.scrollTo({top:0, behavior:"smooth"});
-    }
-
-    function nextPage(){
-      pageIndex += 1;
-      if(pageIndex < pages.length){
-        renderPage(pages[pageIndex]);
-      }else{
-        renderPuzzle();
-      }
-    }
-
-    function renderPuzzle(){
-      view.innerHTML = `
-        <section class="card">
-          <div class="label">STAGE 01 / UFO CATCHER</div>
-          <h2>古い筐体に残っていた景品札</h2>
-          <p>ガラスの内側に、いくつかの札が貼られている。</p>
-          <div class="machine">
+        puzzleStory:`<p>ガラスの内側に、いくつかの景品札が貼られていた。</p><p>落とし口のすぐ手前で止まっているものだけ、少しだけ光って見える。</p>`,
+        quote:`落ちる直前のものだけが、<br>まだ少しだけ光って見える。`,
+        clue:`<div class="machine">
             <div class="machine-title">景品札</div>
             <table>
               <thead>
@@ -463,63 +356,136 @@
                 <tr><td>5号機</td><td>まどろみ</td><td>あと2cm</td></tr>
               </tbody>
             </table>
-          </div>
-          <div class="bracket">落ちる直前のものだけが、<br>まだ少しだけ光って見える。</div>
-          <p class="muted">こたえはひらがなで入力してください。</p>
-          <input class="input" id="answer" placeholder="こたえ" autocomplete="off" autocapitalize="off" />
-          <div class="button-row">
-            <button class="btn" onclick="checkAnswer()">送信する</button>
-            <button class="btn" onclick="toggleHint()">ヒント</button>
-          </div>
-          <div class="hint" id="hint">落とし口までの数字を、景品札の文字位置として見てください。</div>
-          <div class="msg" id="msg"></div>
-        </section>
-      `;
+          </div>`,
+        hint:"落とし口までの数字を、景品札の文字位置として見てください。",
+        after:[
+          `<p>送信すると、景品口で何かが落ちる音がした。</p><p>今度は、ちゃんと入っていた。</p><p>さっきまであんなに欲しかったものが、手の中で急に静かになる。</p>`,
+          `<p>その代わり、筐体の画面に小さく文字が出ている。</p><div class="bracket">もういちど</div><p>それを見た瞬間、少しだけ息がしやすくなった。</p>`,
+          `<p>取れたことより、次があることの方がずっとよかった。</p><p>終わらなかった。まだ、終わっていない。</p>`
+        ]
+      }
+    ];
+
+    const endingPages = [
+      {
+        label:"つづく",
+        heading:"まだ、次がある。",
+        body:`<p>ゲームセンターの奥で、別の筐体が小さく光った。</p><p>景品袋を持ったまま、そちらへ歩いていく。</p><p>中身はもうどうでもよかった。けれど、次の百円を入れる前の数秒だけは、まだ少しだけ楽しみだった。</p>`
+      }
+    ];
+
+    function setView(html){
+      view.innerHTML = html;
       window.scrollTo({top:0, behavior:"smooth"});
-      document.getElementById("answer").addEventListener("keydown", (e) => {
+    }
+
+    function renderTitle(){
+      setView(`
+        <section class="title-page">
+          <div class="logo-box"><h1 class="title">退屈と廃墟</h1></div>
+          <p class="copy">悪くない人生なのに、<br>どこにも届かない夜のために。</p>
+          <button class="btn full" onclick="startGame()">はじめる</button>
+        </section>
+      `);
+    }
+
+    function showPages(pages, done, nextText="次へ"){
+      let i = 0;
+      const render = () => {
+        const p = pages[i];
+        setView(`
+          <section class="page">
+            <div class="label">${p.label}</div>
+            <h2 class="heading">${p.heading}</h2>
+            <div class="text">${p.body}</div>
+            <div class="buttons">
+              <button class="btn full" onclick="window.__nextPage()">${i === pages.length - 1 ? nextText : "次へ"}</button>
+            </div>
+          </section>
+        `);
+      };
+      window.__nextPage = () => {
+        i += 1;
+        if(i < pages.length) render();
+        else done();
+      };
+      render();
+    }
+
+    function startGame(){
+      showPages(introPages, () => showRoomIntro(0), "入場する");
+    }
+
+    function showRoomIntro(index){
+      roomIndex = index;
+      const r = rooms[index];
+      const pages = r.before.map((body, i) => ({
+        label:r.label,
+        heading:i === 0 ? r.heading : "遊戯説明",
+        body
+      }));
+      showPages(pages, renderPuzzle, "謎を見る");
+    }
+
+    function renderPuzzle(){
+      const r = rooms[roomIndex];
+      setView(`
+        <section class="page">
+          <div class="label">${r.label}</div>
+          <h2 class="heading">${r.heading}</h2>
+          <div class="text">${r.puzzleStory}</div>
+          <div class="bracket">${r.quote}</div>
+          <div class="divider-title">手がかり</div>
+          <div class="clue">${r.clue}</div>
+          <p class="instruction">こたえはひらがなで入力してください。</p>
+          <input class="input" id="answerInput" placeholder="こたえ" autocomplete="off" autocapitalize="off" />
+          <div class="buttons">
+            <button class="btn" onclick="checkAnswer()" type="button">送信する</button>
+            <button class="btn" onclick="toggleHint()" type="button">ヒント</button>
+          </div>
+          <div class="hint" id="hintBox">${r.hint}</div>
+          <div class="msg" id="answerMsg"></div>
+        </section>
+      `);
+      document.getElementById("answerInput").addEventListener("keydown", (e) => {
         if(e.key === "Enter") checkAnswer();
       });
     }
 
     function normalize(value){
-      return value.replace(/\s/g, "").replace(/[ァ-ン]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0x60));
+      return value.replace(/\s/g,"").replace(/[ァ-ン]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0x60));
+    }
+
+    function toggleHint(){
+      const hint = document.getElementById("hintBox");
+      hint.style.display = hint.style.display === "block" ? "none" : "block";
     }
 
     function checkAnswer(){
-      const answer = document.getElementById("answer");
-      const msg = document.getElementById("msg");
-      if(normalize(answer.value) === "もういちど"){
+      const input = document.getElementById("answerInput");
+      const msg = document.getElementById("answerMsg");
+      const r = rooms[roomIndex];
+      if(normalize(input.value) === r.answer){
         msg.textContent = "正解。まだ終わっていません。";
         msg.className = "msg ok";
-        setTimeout(() => showAfter(0), 700);
+        setTimeout(() => {
+          const pages = r.after.map((body, i) => ({
+            label:r.label,
+            heading:i === 0 ? "獲得" : "余韻",
+            body
+          }));
+          showPages(pages, () => {
+            if(roomIndex + 1 < rooms.length) showRoomIntro(roomIndex + 1);
+            else showPages(endingPages, renderTitle, "タイトルへ");
+          }, "進む");
+        }, 700);
       }else{
-        msg.textContent = "まだ違うみたい。落とし口までの数字を見てください。";
+        msg.textContent = "まだ違うみたい。手がかりをもう一度見てみてください。";
         msg.className = "msg ng";
       }
     }
 
-    function toggleHint(){
-      const hint = document.getElementById("hint");
-      hint.style.display = hint.style.display === "block" ? "none" : "block";
-    }
-
-    function showAfter(i){
-      const page = afterPages[i];
-      view.innerHTML = `
-        <section class="card">
-          <div class="label">${page.label}</div>
-          <h2>${page.heading}</h2>
-          ${page.body.map(t => `<p>${t}</p>`).join("")}
-          ${page.bracket ? `<div class="bracket">${page.bracket}</div>` : ""}
-          <div class="button-row">
-            <button class="btn" onclick="${i + 1 < afterPages.length ? `showAfter(${i + 1})` : `renderStart()`}">${page.next || "次へ"}</button>
-          </div>
-        </section>
-      `;
-      window.scrollTo({top:0, behavior:"smooth"});
-    }
-
-    renderStart();
+    renderTitle();
   </script>
 </body>
 </html>
