@@ -7,7 +7,7 @@
   <style>
     :root{
       --bg:#05060a;
-      --panel:rgba(9,12,18,.78);
+      --panel:rgba(9,12,18,.70);
       --ink:#f4f0ff;
       --ink2:#bdb6d9;
       --pink:#ff4fd8;
@@ -21,9 +21,9 @@
       margin:0;
       min-height:100%;
       background:
-        radial-gradient(circle at 50% 14%, rgba(255,79,216,.13), transparent 24%),
-        radial-gradient(circle at 86% 72%, rgba(83,199,255,.12), transparent 25%),
-        radial-gradient(circle at 12% 82%, rgba(155,109,255,.09), transparent 24%),
+        radial-gradient(circle at 50% 10%, rgba(255,79,216,.13), transparent 26%),
+        radial-gradient(circle at 86% 74%, rgba(83,199,255,.12), transparent 28%),
+        radial-gradient(circle at 12% 82%, rgba(155,109,255,.09), transparent 26%),
         linear-gradient(180deg,#05060a 0%,#080b11 52%,#040507 100%);
       color:var(--ink);
       font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
@@ -48,56 +48,52 @@
     }
     .wrap{
       min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:22px;
+      width:100%;
     }
     .screen{
-      width:min(100%,540px);
-      min-height:78vh;
-      border:1px solid var(--line);
-      background:rgba(6,8,14,.62);
-      backdrop-filter:blur(8px);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.025) inset,
-        0 0 46px rgba(0,0,0,.48),
-        0 0 90px rgba(83,199,255,.08),
-        0 0 118px rgba(255,79,216,.08);
+      width:100%;
+      min-height:100vh;
       position:relative;
       overflow:hidden;
     }
     .screen::before,.screen::after{
       content:"";
-      position:absolute;
-      width:190px;
-      height:190px;
+      position:fixed;
+      width:280px;
+      height:280px;
       border-radius:50%;
-      filter:blur(46px);
-      opacity:.20;
+      filter:blur(62px);
+      opacity:.18;
       pointer-events:none;
+      z-index:0;
     }
-    .screen::before{top:-50px;right:-50px;background:var(--pink)}
-    .screen::after{left:-50px;bottom:-50px;background:var(--blue)}
+    .screen::before{top:-70px;right:-70px;background:var(--pink)}
+    .screen::after{left:-80px;bottom:-80px;background:var(--blue)}
     #view{
-      min-height:78vh;
+      min-height:100vh;
+      width:100%;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:36px 24px;
+      padding:42px clamp(18px, 5vw, 72px);
       position:relative;
       z-index:1;
     }
 
     .title-page{
-      width:100%;
+      width:min(100%,900px);
+      min-height:calc(100vh - 84px);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
       text-align:center;
       padding:18px 0;
     }
     .logo-box{
       margin:0 auto 22px;
-      width:min(86%,360px);
-      padding:24px 18px 26px;
+      width:min(88vw,560px);
+      padding:28px 24px 30px;
       border:1px solid rgba(255,255,255,.28);
       box-shadow:
         0 0 16px rgba(255,255,255,.12),
@@ -108,8 +104,8 @@
     }
     .title{
       margin:0;
-      font-size:clamp(2.35rem,11vw,4.15rem);
-      line-height:1.12;
+      font-size:clamp(3rem,9vw,6.2rem);
+      line-height:1.1;
       letter-spacing:.08em;
       color:#fff8fe;
       text-shadow:
@@ -122,51 +118,63 @@
     .copy{
       color:var(--ink2);
       line-height:1.9;
-      margin:0 auto 28px;
-      max-width:24em;
+      margin:0 auto 30px;
+      max-width:32em;
       font-size:.95rem;
       text-shadow:0 0 12px rgba(83,199,255,.15);
     }
+
     .page{
-      width:100%;
+      width:min(100%,920px);
+      min-height:calc(100vh - 84px);
       border:1px solid rgba(255,255,255,.105);
       background:var(--panel);
-      padding:28px 22px;
-      box-shadow:inset 0 0 24px rgba(255,255,255,.02), 0 0 30px rgba(0,0,0,.28);
+      padding:clamp(28px,5vw,54px);
+      box-shadow:
+        inset 0 0 30px rgba(255,255,255,.02),
+        0 0 42px rgba(0,0,0,.30),
+        0 0 82px rgba(255,79,216,.06);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
     .label{
       color:var(--ink2);
-      font-size:.78rem;
-      letter-spacing:.28em;
+      font-size:.72rem;
+      letter-spacing:.30em;
       margin-bottom:16px;
       text-shadow:0 0 10px rgba(83,199,255,.16);
     }
     .heading{
-      margin:0 0 20px;
-      font-size:1.75rem;
-      line-height:1.34;
+      margin:0 0 22px;
+      font-size:clamp(1.65rem,3.4vw,2.35rem);
+      line-height:1.35;
       text-shadow:var(--glow);
     }
+    .text{
+      columns:1;
+    }
     .text p{
-      margin:0 0 14px;
-      line-height:2;
+      margin:0 0 13px;
+      line-height:1.9;
       color:#e9e4fb;
-      font-size:.98rem;
+      font-size:clamp(.88rem,1.7vw,.98rem);
+      letter-spacing:.01em;
     }
     .bracket{
-      margin:19px 0 0;
-      padding:16px;
+      margin:20px 0 0;
+      padding:15px 17px;
       border-left:2px solid rgba(255,79,216,.62);
       background:rgba(255,255,255,.035);
       color:#eee9ff;
-      line-height:1.85;
-      font-size:.94rem;
+      line-height:1.82;
+      font-size:clamp(.84rem,1.55vw,.94rem);
       text-shadow:0 0 10px rgba(255,79,216,.10);
     }
     .divider-title{
       margin:24px 0 12px;
       color:var(--ink2);
-      font-size:.82rem;
+      font-size:.78rem;
       letter-spacing:.22em;
       text-align:center;
     }
@@ -182,14 +190,14 @@
       border-bottom:1px solid rgba(255,255,255,.10);
       color:#fffafd;
       letter-spacing:.10em;
-      font-size:.84rem;
+      font-size:.82rem;
       text-shadow:0 0 12px rgba(255,79,216,.28);
       background:linear-gradient(90deg, rgba(255,79,216,.10), rgba(83,199,255,.08));
     }
     table{
       width:100%;
       border-collapse:collapse;
-      font-size:.86rem;
+      font-size:clamp(.78rem,1.5vw,.9rem);
       color:#eee9ff;
     }
     th,td{
@@ -209,18 +217,18 @@
     }
     .instruction{
       color:var(--ink2);
-      font-size:.88rem;
+      font-size:.84rem;
       margin:18px 0 9px;
       line-height:1.8;
     }
     .input{
       width:100%;
-      padding:14px 15px;
+      padding:13px 15px;
       border-radius:0;
       border:1px solid rgba(255,255,255,.18);
       background:rgba(0,0,0,.25);
       color:#fff;
-      font-size:1rem;
+      font-size:.96rem;
       outline:none;
       box-shadow:inset 0 0 16px rgba(255,255,255,.025);
     }
@@ -242,7 +250,7 @@
       color:#fffafd;
       border:1px solid rgba(255,255,255,.22);
       padding:13px 26px;
-      font-size:.96rem;
+      font-size:.92rem;
       letter-spacing:.16em;
       border-radius:999px;
       min-width:128px;
@@ -267,13 +275,14 @@
       background:rgba(255,255,255,.035);
       color:var(--ink2);
       line-height:1.8;
-      font-size:.9rem;
+      font-size:.86rem;
     }
     .msg{
       min-height:1.6em;
       margin-top:14px;
       line-height:1.8;
       color:var(--ink2);
+      font-size:.9rem;
     }
     .msg.ok{color:#fffafd;text-shadow:0 0 14px rgba(83,199,255,.28)}
     .msg.ng{color:#ffd7f3}
@@ -282,14 +291,21 @@
       19%,23%,63%{opacity:.82}
       20%,21%,72%{opacity:.92}
     }
-    @media(max-width:480px){
-      .wrap{padding:16px}
-      .screen,#view{min-height:84vh}
-      #view{padding:28px 18px}
-      .page{padding:25px 18px}
+    @media(min-width:860px){
+      .text.wide{
+        columns:2;
+        column-gap:42px;
+      }
+      .text.wide p{
+        break-inside:avoid;
+      }
+    }
+    @media(max-width:520px){
+      #view{padding:18px 14px}
+      .title-page{min-height:calc(100vh - 36px)}
+      .page{min-height:calc(100vh - 36px); padding:26px 18px}
       .buttons{flex-direction:column}
       .btn{width:100%}
-      table{font-size:.78rem}
       th,td{padding:9px 6px}
     }
   </style>
@@ -310,22 +326,14 @@
       {
         label:"入場",
         heading:"悪くない人生だった。",
-        body:`<p>友人がいる。恋人もいる。仕事もある。</p><p>職場ではそれなりに必要とされていて、自分がいないと少し困る場面もある。誰かと食事に行けば笑えるし、旅行の写真を見返せば、あの時は楽しかったと思える。</p>`
-      },
-      {
-        label:"入場",
-        heading:"それ以上にはならなかった。",
-        body:`<p>美味しいご飯は、美味しい。きれいな景色は、きれい。優しい言葉は、ちゃんと優しい。</p><p>それなのに、全部がそこで終わってしまう。</p><p>足りないものがあるわけじゃない。むしろ、平均のほんの少し上を歩いている自覚があった。</p>`
-      },
-      {
-        label:"入場",
-        heading:"つまらない。",
-        body:`<p>そう思った瞬間、自分のことが少し嫌になる。</p><p>この生活をつまらないと言えてしまうほど、自分は何様なんだろうと思う。けれど、そう思うことと、満たされることは別だった。</p>`
+        wide:true,
+        body:`<p>友人がいる。恋人もいる。仕事もある。</p><p>職場ではそれなりに必要とされていて、自分がいないと少し困る場面もある。誰かと食事に行けば笑えるし、旅行の写真を見返せば、あの時は楽しかったと思える。</p><p>美味しいご飯は、美味しい。きれいな景色は、きれい。優しい言葉は、ちゃんと優しい。</p><p>それなのに、全部がそこで終わってしまう。</p><p>足りないものがあるわけじゃない。むしろ、平均のほんの少し上を歩いている自覚があった。</p><p>不幸ぶるには恵まれすぎている。幸せだと言い切るには、どこかがずっと空いている。</p><p>つまらない。</p><p>そう思った瞬間、自分のことが少し嫌になる。この生活をつまらないと言えてしまうほど、自分は何様なんだろうと思う。けれど、そう思うことと、満たされることは別だった。</p>`
       },
       {
         label:"入口",
-        heading:"ゲームセンター",
-        body:`<p>仕事帰り、閉店前のゲームセンターに寄った。</p><p>行きたかったわけじゃない。ただ、まっすぐ帰るのが嫌だった。</p><p>家には帰る場所がある。連絡をくれる人もいる。明日の予定もある。悪くない夜だった。</p><div class="bracket">でも、悪くないだけの夜を、<br>そのまま終わらせるのが少し怖かった。</div>`
+        heading:"閉店前のゲームセンターに寄った。",
+        wide:true,
+        body:`<p>行きたかったわけじゃない。ただ、まっすぐ帰るのが嫌だった。</p><p>家には帰る場所がある。連絡をくれる人もいる。明日の予定もある。悪くない夜だった。</p><p>でも、悪くないだけの夜を、そのまま終わらせるのが少し怖かった。</p><p>店の奥で、UFOキャッチャーだけがまだ光っていた。ガラスの内側には、ぬいぐるみや箱物の景品が詰め込まれている。欲しいかと聞かれたら、欲しい。</p><p>少なくとも、アームを動かしている間は本当に欲しい。</p><p>爪の角度を見て、重心を読んで、滑り止めの位置を疑って、あと一手で落ちそうなのに落ちないものに、もう一回だけ百円を入れる。</p><div class="bracket">取れるかもしれないと思っている時間だけ、<br>身体の奥に少しだけ電気が通る。</div>`
       }
     ];
 
@@ -336,9 +344,10 @@
         display:"UFOキャッチャー",
         answer:"もういちど",
         before:[
-          `<p>店の奥で、UFOキャッチャーだけがまだ光っていた。</p><p>ガラスの内側には、ぬいぐるみや箱物の景品が詰め込まれている。欲しいかと聞かれたら、欲しい。</p>`,
-          `<p>少なくとも、アームを動かしている間は本当に欲しい。</p><p>爪の角度を見て、重心を読んで、滑り止めの位置を疑って、あと一手で落ちそうなのに落ちないものに、もう一回だけ百円を入れる。</p><div class="bracket">取れるかもしれないと思っている時間だけ、<br>身体の奥に少しだけ電気が通る。</div>`,
-          `<p>でも、景品口に落ちた瞬間、熱はすぐに引いていく。</p><p>さっきまであんなに欲しかったものが、袋に入れた途端、ただの物になる。家に持ち帰っても開けない。飾らない。たぶん、そのうち忘れる。</p><p>欲しかったのは、景品そのものじゃなかったのかもしれない。</p>`
+          {
+            wide:true,
+            body:`<p>景品口に落ちた瞬間、熱はすぐに引いていく。</p><p>さっきまであんなに欲しかったものが、袋に入れた途端、ただの物になる。家に持ち帰っても開けない。飾らない。たぶん、そのうち忘れる。</p><p>欲しかったのは、景品そのものじゃなかったのかもしれない。</p><p>取れるかもしれないと思っている時間。取れなくて、考えて、もう一度だけ試したくなる数十秒。そこにしか、うまく火がつかなかった。</p>`
+          }
         ],
         puzzleStory:`<p>ガラスの内側に、いくつかの景品札が貼られていた。</p><p>落とし口のすぐ手前で止まっているものだけ、少しだけ光って見える。</p>`,
         quote:`落ちる直前のものだけが、<br>まだ少しだけ光って見える。`,
@@ -359,9 +368,10 @@
           </div>`,
         hint:"落とし口までの数字を、景品札の文字位置として見てください。",
         after:[
-          `<p>送信すると、景品口で何かが落ちる音がした。</p><p>今度は、ちゃんと入っていた。</p><p>さっきまであんなに欲しかったものが、手の中で急に静かになる。</p>`,
-          `<p>その代わり、筐体の画面に小さく文字が出ている。</p><div class="bracket">もういちど</div><p>それを見た瞬間、少しだけ息がしやすくなった。</p>`,
-          `<p>取れたことより、次があることの方がずっとよかった。</p><p>終わらなかった。まだ、終わっていない。</p>`
+          {
+            wide:true,
+            body:`<p>送信すると、景品口で何かが落ちる音がした。今度は、ちゃんと入っていた。</p><p>さっきまであんなに欲しかったものが、手の中で急に静かになる。</p><p>その代わり、筐体の画面に小さく文字が出ている。</p><div class="bracket">もういちど</div><p>それを見た瞬間、少しだけ息がしやすくなった。</p><p>取れたことより、次があることの方がずっとよかった。終わらなかった。まだ、終わっていない。</p>`
+          }
         ]
       }
     ];
@@ -370,7 +380,7 @@
       {
         label:"つづく",
         heading:"まだ、次がある。",
-        body:`<p>ゲームセンターの奥で、別の筐体が小さく光った。</p><p>景品袋を持ったまま、そちらへ歩いていく。</p><p>中身はもうどうでもよかった。けれど、次の百円を入れる前の数秒だけは、まだ少しだけ楽しみだった。</p>`
+        body:`<p>ゲームセンターの奥で、別の筐体が小さく光った。</p><p>景品袋を持ったまま、そちらへ歩いていく。中身はもうどうでもよかった。けれど、次の百円を入れる前の数秒だけは、まだ少しだけ楽しみだった。</p>`
       }
     ];
 
@@ -397,7 +407,7 @@
           <section class="page">
             <div class="label">${p.label}</div>
             <h2 class="heading">${p.heading}</h2>
-            <div class="text">${p.body}</div>
+            <div class="text ${p.wide ? "wide" : ""}">${p.body}</div>
             <div class="buttons">
               <button class="btn full" onclick="window.__nextPage()">${i === pages.length - 1 ? nextText : "次へ"}</button>
             </div>
@@ -413,16 +423,17 @@
     }
 
     function startGame(){
-      showPages(introPages, () => showRoomIntro(0), "入場する");
+      showPages(introPages, () => showRoomIntro(0), "謎を見る");
     }
 
     function showRoomIntro(index){
       roomIndex = index;
       const r = rooms[index];
-      const pages = r.before.map((body, i) => ({
+      const pages = r.before.map((item, i) => ({
         label:r.label,
-        heading:i === 0 ? r.heading : "遊戯説明",
-        body
+        heading:r.heading,
+        body:typeof item === "string" ? item : item.body,
+        wide:typeof item === "string" ? false : item.wide
       }));
       showPages(pages, renderPuzzle, "謎を見る");
     }
@@ -469,10 +480,11 @@
         msg.textContent = "正解。まだ終わっていません。";
         msg.className = "msg ok";
         setTimeout(() => {
-          const pages = r.after.map((body, i) => ({
+          const pages = r.after.map((item) => ({
             label:r.label,
-            heading:i === 0 ? "獲得" : "余韻",
-            body
+            heading:"獲得",
+            body:typeof item === "string" ? item : item.body,
+            wide:typeof item === "string" ? false : item.wide
           }));
           showPages(pages, () => {
             if(roomIndex + 1 < rooms.length) showRoomIntro(roomIndex + 1);
