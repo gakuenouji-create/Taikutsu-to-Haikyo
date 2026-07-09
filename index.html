@@ -313,6 +313,93 @@ html,body{overflow:hidden}
 .msg{grid-column:1/-1;min-height:1.1em;margin:0;font-size:.64rem;line-height:1.2}
 </style>
 
+
+<style id="janken-v16">
+.janken-page{
+  padding:clamp(18px,4vw,42px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:14px;
+}
+.janken-machine{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(3,7,14,.74);
+  box-shadow:0 0 26px rgba(255,91,216,.09), inset 0 0 22px rgba(255,255,255,.02);
+  overflow:hidden;
+}
+.janken-screen{
+  padding:18px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(90deg, rgba(255,91,216,.10), rgba(85,215,255,.08));
+}
+.janken-screen p{
+  margin:0 0 6px;
+  line-height:1.65;
+}
+.janken-buttons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  padding:14px;
+}
+.janken-btn-card{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.25);
+  padding:14px 12px;
+  min-height:112px;
+}
+.janken-letter{
+  font-size:1.6rem;
+  line-height:1;
+  margin-bottom:12px;
+  color:#fffafd;
+  text-shadow:0 0 14px rgba(85,215,255,.32),0 0 18px rgba(255,91,216,.22);
+}
+.janken-speech{
+  margin:0;
+  color:#eee9ff;
+  line-height:1.7;
+  font-size:.96rem;
+}
+.janken-answer{
+  border:1px solid rgba(255,255,255,.13);
+  background:rgba(3,7,14,.74);
+  padding:12px;
+}
+.janken-answer .input{
+  margin-top:7px;
+}
+.janken-answer .buttons{
+  margin-top:10px;
+}
+.janken-answer button{
+  min-width:0;
+}
+.note-small{
+  color:var(--muted);
+  font-size:.86rem;
+  line-height:1.65;
+  margin:0;
+}
+@media(max-width:560px){
+  .janken-page{
+    padding:14px;
+    justify-content:flex-start;
+    overflow:auto;
+  }
+  .janken-buttons{
+    grid-template-columns:1fr;
+  }
+  .janken-btn-card{
+    min-height:auto;
+  }
+  .janken-screen{
+    padding:14px;
+  }
+}
+</style>
+
 </head>
 <body>
 <div id="view"></div>
@@ -361,10 +448,26 @@ function showIntro2() {
       <p>でも、悪くないだけの夜を、そのまま終わらせるのが少し怖かった。</p>
       <p>店の奥で、UFOキャッチャーだけがまだ光っていた。</p>
       <div class="bracket">取れるかもしれないと思っている時間だけ、<br>身体の奥に少しだけ電気が通る。</div>
+      <div class="buttons"><button class="full" onclick="showUfoText()">次へ</button></div>
+    </section>
+  `);
+}
+
+
+function showUfoText() {
+  setView(`
+    <section class="page">
+      <div class="label">第一遊戯室</div>
+      <h2>UFOキャッチャー</h2>
+      <p>景品口に落ちた瞬間、熱はすぐに引いていく。</p>
+      <p>さっきまであんなに欲しかったものが、袋に入れた途端、ただの物になる。家に持ち帰っても開けない。飾らない。たぶん、そのうち忘れる。</p>
+      <p>欲しかったのは、景品そのものじゃなかったのかもしれない。</p>
+      <p>取れるかもしれないと思っている時間。取れなくて、考えて、もう一度だけ試したくなる数十秒。そこにしか、うまく火がつかなかった。</p>
       <div class="buttons"><button class="full" onclick="renderPuzzle()">謎を見る</button></div>
     </section>
   `);
 }
+
 
 function renderPuzzle() {
   setView(`
@@ -428,6 +531,126 @@ function renderPuzzle() {
   });
 }
 
+
+function showUfoClear() {
+  setView(`
+    <section class="page">
+      <div class="label">第一遊戯室 / CLEAR</div>
+      <h2>もういちど</h2>
+      <p>景品口の奥で、軽い音がした。</p>
+      <p>落ちてきたぬいぐるみは、思っていたより小さかった。あんなにアクリル板越しに見つめて、角度を考えて、あと少しだと思っていたものが、手の中に来た瞬間、急に静かになる。</p>
+      <p>嬉しくないわけじゃない。可愛いとも思う。</p>
+      <p>でも、胸の奥で光っていたものは、景品と一緒には落ちてこなかった。</p>
+      <p>欲しかったのは、これじゃなかったのかもしれない。</p>
+      <div class="bracket">もういちど<br><br>その言葉だけが、景品より少しだけ眩しかった。</div>
+      <div class="buttons"><button class="full" onclick="showJankenIntro()">奥へ進む</button></div>
+    </section>
+  `);
+}
+
+function showJankenIntro() {
+  setView(`
+    <section class="page">
+      <div class="label">第二遊戯室</div>
+      <h2>ジャンケンゲーム</h2>
+      <p>奥の方で、古いゲーム機が光っていた。</p>
+      <p>画面には、妙に明るい文字でこう書かれている。</p>
+      <div class="bracket">ジャンケンに勝ったら<br>景品プレゼント</div>
+      <p>勝てばいいだけ。ルールは簡単で、誰でも知っている。</p>
+      <p>それなのに、ボタンの前に立つと少しだけ迷う。</p>
+      <p>勝ちたいのか、終わらせたいのか。負けたくないのか、まだ続いてほしいのか。</p>
+      <div class="buttons"><button class="full" onclick="renderJanken()">謎を見る</button></div>
+    </section>
+  `);
+}
+
+function renderJanken() {
+  setView(`
+    <section class="page janken-page">
+      <div>
+        <div class="label">第二遊戯室</div>
+        <h2>ジャンケンゲーム</h2>
+        <p>筐体には、3つのボタンがある。</p>
+        <p>古すぎて手の絵は消えている。A・B・Cには、それぞれ「ぐー」「ちょき」「ぱー」のどれかが入っているらしい。</p>
+      </div>
+
+      <div class="janken-machine">
+        <div class="janken-screen">
+          <p>景品を持っているボタンだけが、うそをつく。</p>
+          <p>景品がほしければ、うそをついた手に勝て。</p>
+        </div>
+        <div class="janken-buttons">
+          <div class="janken-btn-card">
+            <div class="janken-letter">A</div>
+            <p class="janken-speech">「Bには勝てる」</p>
+          </div>
+          <div class="janken-btn-card">
+            <div class="janken-letter">B</div>
+            <p class="janken-speech">「Aより、ひらいている指が3本多い」</p>
+          </div>
+          <div class="janken-btn-card">
+            <div class="janken-letter">C</div>
+            <p class="janken-speech">「Bには勝てる」</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="janken-answer">
+        <p class="note-small">景品を出す手を入力してください。</p>
+        <p class="note-small">こたえはぐー、ちょき、ぱーから選んでひらがなで入力</p>
+        <input class="input" id="jankenAnswer" placeholder="ぐー / ちょき / ぱー">
+        <div class="buttons">
+          <button onclick="checkJanken()">送信</button>
+          <button onclick="showJankenHint()">ヒント</button>
+        </div>
+        <div class="msg" id="jankenMsg"></div>
+      </section>
+    </section>
+  `);
+  document.getElementById("jankenAnswer").addEventListener("keydown", e => {
+    if(e.key === "Enter") checkJanken();
+  });
+}
+
+function normalizeJanken(value) {
+  return value.replace(/\s/g,"").replace(/[ァ-ン]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0x60));
+}
+
+function checkJanken() {
+  const msg = document.getElementById("jankenMsg");
+  const v = normalizeJanken(document.getElementById("jankenAnswer").value);
+  if(v === "ぱー") {
+    msg.textContent = "正解。景品口が、少し遅れてひらいた。";
+    msg.className = "msg ok";
+    setTimeout(showJankenClear, 800);
+  } else {
+    msg.textContent = "まだ違うみたい。どのボタンがうそをついているか考えて。";
+    msg.className = "msg ng";
+  }
+}
+
+function showJankenHint() {
+  const msg = document.getElementById("jankenMsg");
+  msg.textContent = "ぐーは0本、ちょきは2本、ぱーは5本。まずBの言葉からAとBを決めます。";
+  msg.className = "msg";
+}
+
+function showJankenClear() {
+  setView(`
+    <section class="page">
+      <div class="label">第二遊戯室 / CLEAR</div>
+      <h2>ぱー</h2>
+      <p>ボタンを押すと、ゲーム機の奥で小さなモーター音がした。</p>
+      <p>勝った、というより、正しい手順で古い機械を起こしたような感じだった。</p>
+      <p>景品口が開く。中には、やけに軽い景品がひとつだけ入っている。</p>
+      <p>手を伸ばすと、画面の光が一度だけ強くなった。</p>
+      <div class="bracket">勝ったら終わり。<br>でも、奥はまだ暗い。</div>
+      <div class="buttons"><button class="full" onclick="renderTitle()">タイトルへ</button></div>
+    </section>
+  `);
+}
+
+
 function normalize(value) {
   return value.replace(/\s/g,"").replace(/[ァ-ン]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0x60));
 }
@@ -436,8 +659,9 @@ function checkAnswer() {
   const msg = document.getElementById("msg");
   const v = normalize(document.getElementById("answer").value);
   if(v === "もういちど") {
-    msg.textContent = "正解。取れたことより、次があることの方がずっとよかった。";
+    msg.textContent = "正解。";
     msg.className = "msg ok";
+    setTimeout(showUfoClear, 700);
   } else {
     msg.textContent = "まだ違うみたい。";
     msg.className = "msg ng";
