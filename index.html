@@ -6,14 +6,11 @@
   <title>退屈と廃墟</title>
   <style>
     :root{
-      --bg:#06070b;
-      --bg2:#0c1018;
       --text:#f3f0ff;
       --muted:#b9b3d6;
       --pink:#ff4fd8;
       --blue:#53c7ff;
-      --violet:#9b6dff;
-      --line:rgba(255,255,255,.08);
+      --line:rgba(255,255,255,.09);
     }
     *{box-sizing:border-box}
     html,body{
@@ -24,7 +21,6 @@
       background:
         radial-gradient(circle at 50% 20%, rgba(255,79,216,.14), transparent 28%),
         radial-gradient(circle at 80% 70%, rgba(83,199,255,.11), transparent 25%),
-        radial-gradient(circle at 15% 80%, rgba(155,109,255,.10), transparent 22%),
         linear-gradient(180deg, #05070b 0%, #090c12 55%, #040507 100%);
       color:var(--text);
       font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
@@ -44,17 +40,15 @@
           transparent 1px,
           transparent 4px
         );
-      mix-blend-mode:screen;
       opacity:.22;
     }
     .noise{
       position:fixed;
       inset:0;
       pointer-events:none;
-      opacity:.08;
+      opacity:.07;
       background-image:radial-gradient(circle, rgba(255,255,255,.6) 0.6px, transparent 0.7px);
       background-size:14px 14px;
-      filter:blur(.15px);
     }
     .wrap{
       min-height:100vh;
@@ -84,22 +78,24 @@
       width:180px;
       height:180px;
       border-radius:50%;
-      filter:blur(40px);
-      opacity:.22;
+      filter:blur(42px);
+      opacity:.20;
       pointer-events:none;
     }
     .screen::before{top:-40px; right:-40px; background:var(--pink);}
     .screen::after{left:-40px; bottom:-40px; background:var(--blue);}
-
-    .start{
+    .view{
       min-height:76vh;
       display:flex;
-      flex-direction:column;
       align-items:center;
       justify-content:center;
-      text-align:center;
-      padding:40px 26px;
+      padding:36px 24px;
       position:relative;
+      z-index:1;
+    }
+    .start{
+      text-align:center;
+      width:100%;
     }
     .title{
       margin:0;
@@ -131,7 +127,45 @@
       background:linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
       box-shadow:0 0 12px rgba(255,79,216,.55);
     }
-    .start-btn, .ghost-btn{
+    .card{
+      width:100%;
+      border:1px solid rgba(255,255,255,.10);
+      padding:28px 22px;
+      background:rgba(10,12,20,.72);
+      box-shadow:inset 0 0 24px rgba(255,255,255,.02), 0 0 28px rgba(0,0,0,.26);
+    }
+    .label{
+      color:var(--muted);
+      font-size:.78rem;
+      letter-spacing:.28em;
+      margin-bottom:16px;
+    }
+    h2{
+      margin:0 0 18px;
+      font-size:1.75rem;
+      line-height:1.35;
+      text-shadow:0 0 14px rgba(83,199,255,.18), 0 0 20px rgba(255,79,216,.18);
+    }
+    p{
+      margin:0 0 14px;
+      line-height:2;
+      color:#e9e4fb;
+      font-size:.98rem;
+    }
+    .muted{
+      color:var(--muted);
+      font-size:.92rem;
+    }
+    .bracket{
+      margin:18px 0 0;
+      padding:16px;
+      border-left:2px solid rgba(255,79,216,.62);
+      background:rgba(255,255,255,.035);
+      color:#eee9ff;
+      line-height:1.8;
+      font-size:.94rem;
+    }
+    .btn{
       border:none;
       appearance:none;
       cursor:pointer;
@@ -140,7 +174,7 @@
       border:1px solid rgba(255,255,255,.20);
       padding:14px 34px;
       font-size:1rem;
-      letter-spacing:.24em;
+      letter-spacing:.18em;
       border-radius:999px;
       box-shadow:
         0 0 0 1px rgba(255,255,255,.03) inset,
@@ -151,7 +185,7 @@
         0 0 20px rgba(255,79,216,.35);
       transition:.25s ease;
     }
-    .start-btn:hover, .ghost-btn:hover{
+    .btn:hover{
       transform:translateY(-1px) scale(1.01);
       border-color:rgba(255,255,255,.45);
       box-shadow:
@@ -159,66 +193,95 @@
         0 0 24px rgba(255,79,216,.26),
         0 0 36px rgba(83,199,255,.14);
     }
-    .caption{
-      margin-top:18px;
-      color:rgba(255,255,255,.42);
-      font-size:.78rem;
-      letter-spacing:.12em;
-    }
-    .intro{
-      display:none;
-      min-height:76vh;
-      padding:34px 24px 26px;
-      align-items:center;
-      justify-content:center;
-    }
-    .intro.active{display:flex;}
-    .intro-card{
-      width:100%;
-      border:1px solid rgba(255,255,255,.10);
-      padding:28px 22px;
-      background:rgba(10,12,20,.72);
-      box-shadow:inset 0 0 24px rgba(255,255,255,.02), 0 0 28px rgba(0,0,0,.26);
-    }
-    .intro-label{
-      color:var(--muted);
-      font-size:.78rem;
-      letter-spacing:.28em;
-      margin-bottom:16px;
-    }
-    .intro h2{
-      margin:0 0 18px;
-      font-size:1.8rem;
-      line-height:1.35;
-      text-shadow:0 0 14px rgba(83,199,255,.18), 0 0 20px rgba(255,79,216,.18);
-    }
-    .intro p{
-      margin:0 0 14px;
-      line-height:2;
-      color:#e9e4fb;
-      font-size:.98rem;
-    }
-    .intro p.muted{
-      color:var(--muted);
-      font-size:.92rem;
-    }
     .button-row{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       margin-top:24px;
     }
-    .hidden{display:none !important;}
+    .machine{
+      margin:20px 0;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.025);
+      box-shadow:0 0 26px rgba(255,79,216,.08), inset 0 0 18px rgba(83,199,255,.025);
+      overflow:hidden;
+    }
+    .machine-title{
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      color:#fffafd;
+      letter-spacing:.10em;
+      font-size:.84rem;
+      text-shadow:0 0 12px rgba(255,79,216,.28);
+      background:linear-gradient(90deg, rgba(255,79,216,.10), rgba(83,199,255,.08));
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:.86rem;
+      color:#eee9ff;
+    }
+    th,td{
+      padding:10px 8px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      text-align:left;
+      white-space:nowrap;
+    }
+    th{
+      color:var(--muted);
+      font-weight:400;
+      letter-spacing:.08em;
+    }
+    td:nth-child(3), th:nth-child(3){
+      text-align:right;
+      font-variant-numeric:tabular-nums;
+    }
+    .input{
+      width:100%;
+      margin-top:8px;
+      padding:14px 15px;
+      border-radius:0;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.22);
+      color:#fff;
+      font-size:1rem;
+      outline:none;
+      box-shadow:inset 0 0 16px rgba(255,255,255,.025);
+    }
+    .input:focus{
+      border-color:rgba(255,255,255,.42);
+      box-shadow:0 0 20px rgba(255,79,216,.12), inset 0 0 16px rgba(255,255,255,.025);
+    }
+    .hint{
+      display:none;
+      margin-top:14px;
+      padding:14px;
+      border-left:2px solid rgba(83,199,255,.55);
+      background:rgba(255,255,255,.035);
+      color:var(--muted);
+      line-height:1.8;
+      font-size:.9rem;
+    }
+    .msg{
+      min-height:1.6em;
+      margin-top:14px;
+      line-height:1.8;
+      color:var(--muted);
+    }
+    .msg.ok{color:#fffafd; text-shadow:0 0 14px rgba(83,199,255,.28);}
+    .msg.ng{color:#ffd7f3;}
     @keyframes flicker{
       0%,18%,22%,24%,62%,64%,100%{opacity:1;}
       19%,23%,63%{opacity:.82;}
       20%,21%,72%{opacity:.92;}
     }
     @media (max-width:480px){
-      .screen,.start,.intro{min-height:82vh}
+      .screen,.view{min-height:82vh}
       .title{letter-spacing:.06em}
-      .start-btn,.ghost-btn{width:100%}
+      .btn{width:100%}
       .button-row{flex-direction:column}
+      table{font-size:.78rem}
+      th,td{padding:9px 6px}
     }
   </style>
 </head>
@@ -226,94 +289,237 @@
   <div class="noise"></div>
   <div class="wrap">
     <main class="screen">
-      <section class="start" id="startScreen">
-        <h1 class="title">退屈と廃墟</h1>
-        <p class="subtitle">
-          悪くない人生なのに、<br>
-          どこにも届かない夜のために。
-        </p>
-        <div class="divider"></div>
-        <button class="start-btn" id="startBtn">はじめる</button>
-        <div class="caption">退屈を持ち込んだ人だけ、入場できます。</div>
-      </section>
-
-      <section class="intro" id="introScreen">
-        <div class="intro-card">
-          <div class="intro-label">PROLOGUE</div>
-          <h2>悪くない人生だった。</h2>
-          <p>
-            友人がいる。恋人もいる。仕事もある。職場ではそれなりに必要とされていて、自分がいないと少し困る場面もある。誰かと食事に行けば笑えるし、旅行の写真を見返せば、あの時は楽しかったと思える。
-          </p>
-          <p>
-            美味しいご飯は、美味しい。きれいな景色は、きれい。優しい言葉は、ちゃんと優しい。
-          </p>
-          <p>
-            それなのに、全部がそこで終わってしまう。
-          </p>
-          <p>
-            美味しいと思ったあと、心はすぐ元の場所に戻る。きれいだと思った景色も、写真フォルダに入った瞬間、ただの記録になる。恋人の優しさも、友人との会話も、仕事で褒められたことも、受け取っている自分はちゃんといるのに、身体の奥まで届かない。
-          </p>
-          <p>
-            足りないものがあるわけじゃない。むしろ、平均のほんの少し上を歩いている自覚があった。
-          </p>
-          <p>
-            不幸ぶるには恵まれすぎている。幸せだと言い切るには、どこかがずっと空いている。
-          </p>
-          <p>
-            つまらない。
-          </p>
-          <p>
-            そう思った瞬間、自分のことが少し嫌になる。この生活をつまらないと言えてしまうほど、自分は何様なんだろうと思う。けれど、そう思うことと、満たされることは別だった。
-          </p>
-          <p>
-            仕事帰り、閉店前のゲームセンターに寄った。
-          </p>
-          <p>
-            行きたかったわけじゃない。ただ、まっすぐ帰るのが嫌だった。
-          </p>
-          <p>
-            家には帰る場所がある。連絡をくれる人もいる。明日の予定もある。冷蔵庫には昨日買ったプリンがあって、途中まで見た映画の続きもある。
-          </p>
-          <p>
-            悪くない夜だった。
-          </p>
-          <p>
-            でも、悪くないだけの夜を、そのまま終わらせるのが少し怖かった。
-          </p>
-          <p class="muted">
-            欲しいのは、景品じゃなかった。
-          </p>
-          <div class="button-row">
-            <button class="start-btn" id="enterBtn">ゲームセンターへ</button>
-            <button class="ghost-btn" id="backBtn">もどる</button>
-          </div>
-        </div>
-      </section>
+      <div class="view" id="view"></div>
     </main>
   </div>
 
   <script>
-    const startScreen = document.getElementById('startScreen');
-    const introScreen = document.getElementById('introScreen');
-    const startBtn = document.getElementById('startBtn');
-    const enterBtn = document.getElementById('enterBtn');
-    const backBtn = document.getElementById('backBtn');
+    const view = document.getElementById("view");
+    let pageIndex = 0;
 
-    startBtn.addEventListener('click', () => {
-      startScreen.classList.add('hidden');
-      introScreen.classList.add('active');
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
+    const pages = [
+      {
+        label:"PROLOGUE",
+        heading:"悪くない人生だった。",
+        body:[
+          "友人がいる。恋人もいる。仕事もある。",
+          "職場ではそれなりに必要とされていて、自分がいないと少し困る場面もある。",
+          "誰かと食事に行けば笑えるし、旅行の写真を見返せば、あの時は楽しかったと思える。"
+        ]
+      },
+      {
+        label:"PROLOGUE",
+        heading:"それ以上にはならなかった。",
+        body:[
+          "美味しいご飯は、美味しい。",
+          "きれいな景色は、きれい。",
+          "優しい言葉は、ちゃんと優しい。",
+          "それなのに、全部がそこで終わってしまう。"
+        ]
+      },
+      {
+        label:"PROLOGUE",
+        heading:"どこにも届かない。",
+        body:[
+          "足りないものがあるわけじゃない。",
+          "むしろ、平均のほんの少し上を歩いている自覚があった。",
+          "不幸ぶるには恵まれすぎている。",
+          "幸せだと言い切るには、どこかがずっと空いている。"
+        ]
+      },
+      {
+        label:"PROLOGUE",
+        heading:"つまらない。",
+        body:[
+          "そう思った瞬間、自分のことが少し嫌になる。",
+          "この生活をつまらないと言えてしまうほど、自分は何様なんだろうと思う。",
+          "けれど、そう思うことと、満たされることは別だった。"
+        ]
+      },
+      {
+        label:"GAME CENTER",
+        heading:"閉店前のゲームセンターに寄った。",
+        body:[
+          "行きたかったわけじゃない。",
+          "ただ、まっすぐ帰るのが嫌だった。",
+          "家には帰る場所がある。連絡をくれる人もいる。明日の予定もある。",
+          "悪くない夜だった。",
+          "でも、悪くないだけの夜を、そのまま終わらせるのが少し怖かった。"
+        ]
+      },
+      {
+        label:"STAGE 01",
+        heading:"UFOキャッチャー",
+        body:[
+          "景品は欲しい。",
+          "少なくとも、アームを動かしている間は本当に欲しい。",
+          "爪の角度を見て、重心を読んで、滑り止めの位置を疑って、あと一手で落ちそうなのに落ちないものに、もう一回だけ百円を入れる。"
+        ]
+      },
+      {
+        label:"STAGE 01",
+        heading:"取れたら終わる。",
+        body:[
+          "景品口に落ちた瞬間、熱はすぐに引いていく。",
+          "さっきまであんなに欲しかったものが、袋に入れた途端、ただの物になる。",
+          "家に持ち帰っても開けない。飾らない。たぶん、そのうち忘れる。"
+        ]
+      },
+      {
+        label:"STAGE 01",
+        heading:"取れるまでが、欲しい。",
+        body:[
+          "欲しかったのは、景品そのものじゃなかったのかもしれない。",
+          "取れるかもしれないと思っている時間。",
+          "取れなくて、考えて、もう一度だけ試したくなる数十秒。",
+          "そこにしか、うまく火がつかなかった。"
+        ],
+        next:"謎を見る"
+      }
+    ];
 
-    backBtn.addEventListener('click', () => {
-      introScreen.classList.remove('active');
-      startScreen.classList.remove('hidden');
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
+    const afterPages = [
+      {
+        label:"STAGE 01 / CLEAR",
+        heading:"景品口で、何かが落ちる音がした。",
+        body:[
+          "今度は、ちゃんと入っていた。",
+          "さっきまであんなに欲しかったものが、手の中で急に静かになる。",
+          "その代わり、画面に小さく文字が出ている。"
+        ],
+        bracket:"もういちど"
+      },
+      {
+        label:"STAGE 01 / CLEAR",
+        heading:"まだ、終わっていない。",
+        body:[
+          "それを見た瞬間、少しだけ息がしやすくなった。",
+          "取れたことより、次があることの方がずっとよかった。"
+        ],
+        next:"つづく"
+      }
+    ];
 
-    enterBtn.addEventListener('click', () => {
-      document.body.classList.add('entered');
-    });
+    function renderStart(){
+      view.innerHTML = `
+        <section class="start">
+          <h1 class="title">退屈と廃墟</h1>
+          <p class="subtitle">
+            悪くない人生なのに、<br>
+            どこにも届かない夜のために。
+          </p>
+          <div class="divider"></div>
+          <button class="btn" onclick="startStory()">はじめる</button>
+        </section>
+      `;
+    }
+
+    function startStory(){
+      pageIndex = 0;
+      renderPage(pages[pageIndex]);
+    }
+
+    function renderPage(page){
+      view.innerHTML = `
+        <section class="card">
+          <div class="label">${page.label}</div>
+          <h2>${page.heading}</h2>
+          ${page.body.map(t => `<p>${t}</p>`).join("")}
+          ${page.bracket ? `<div class="bracket">${page.bracket}</div>` : ""}
+          <div class="button-row">
+            <button class="btn" onclick="nextPage()">${page.next || "次へ"}</button>
+          </div>
+        </section>
+      `;
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function nextPage(){
+      pageIndex += 1;
+      if(pageIndex < pages.length){
+        renderPage(pages[pageIndex]);
+      }else{
+        renderPuzzle();
+      }
+    }
+
+    function renderPuzzle(){
+      view.innerHTML = `
+        <section class="card">
+          <div class="label">STAGE 01 / UFO CATCHER</div>
+          <h2>古い筐体に残っていた景品札</h2>
+          <p>ガラスの内側に、いくつかの札が貼られている。</p>
+          <div class="machine">
+            <div class="machine-title">景品札</div>
+            <table>
+              <thead>
+                <tr><th>台</th><th>景品札</th><th>落とし口まで</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1号機</td><td>もぐら</td><td>あと1cm</td></tr>
+                <tr><td>2号機</td><td>くうき</td><td>あと2cm</td></tr>
+                <tr><td>3号機</td><td>あおい</td><td>あと3cm</td></tr>
+                <tr><td>4号機</td><td>よるみち</td><td>あと4cm</td></tr>
+                <tr><td>5号機</td><td>まどろみ</td><td>あと2cm</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bracket">落ちる直前のものだけが、<br>まだ少しだけ光って見える。</div>
+          <p class="muted">こたえはひらがなで入力してください。</p>
+          <input class="input" id="answer" placeholder="こたえ" autocomplete="off" autocapitalize="off" />
+          <div class="button-row">
+            <button class="btn" onclick="checkAnswer()">送信する</button>
+            <button class="btn" onclick="toggleHint()">ヒント</button>
+          </div>
+          <div class="hint" id="hint">落とし口までの数字を、景品札の文字位置として見てください。</div>
+          <div class="msg" id="msg"></div>
+        </section>
+      `;
+      window.scrollTo({top:0, behavior:"smooth"});
+      document.getElementById("answer").addEventListener("keydown", (e) => {
+        if(e.key === "Enter") checkAnswer();
+      });
+    }
+
+    function normalize(value){
+      return value.replace(/\s/g, "").replace(/[ァ-ン]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0x60));
+    }
+
+    function checkAnswer(){
+      const answer = document.getElementById("answer");
+      const msg = document.getElementById("msg");
+      if(normalize(answer.value) === "もういちど"){
+        msg.textContent = "正解。まだ終わっていません。";
+        msg.className = "msg ok";
+        setTimeout(() => showAfter(0), 700);
+      }else{
+        msg.textContent = "まだ違うみたい。落とし口までの数字を見てください。";
+        msg.className = "msg ng";
+      }
+    }
+
+    function toggleHint(){
+      const hint = document.getElementById("hint");
+      hint.style.display = hint.style.display === "block" ? "none" : "block";
+    }
+
+    function showAfter(i){
+      const page = afterPages[i];
+      view.innerHTML = `
+        <section class="card">
+          <div class="label">${page.label}</div>
+          <h2>${page.heading}</h2>
+          ${page.body.map(t => `<p>${t}</p>`).join("")}
+          ${page.bracket ? `<div class="bracket">${page.bracket}</div>` : ""}
+          <div class="button-row">
+            <button class="btn" onclick="${i + 1 < afterPages.length ? `showAfter(${i + 1})` : `renderStart()`}">${page.next || "次へ"}</button>
+          </div>
+        </section>
+      `;
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    renderStart();
   </script>
 </body>
 </html>
