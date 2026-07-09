@@ -309,7 +309,7 @@ html,body{overflow:hidden}
 .answer-row{flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:5px;align-items:center;border:1px solid rgba(255,255,255,.13);background:rgba(3,7,14,.74);padding:5px}
 .instruction{grid-column:1/-1;margin:0;color:var(--muted);font-size:clamp(.56rem,2.2vw,.72rem);line-height:1.15}
 .input{width:100%;min-width:0;padding:7px 8px;font-size:.9rem}
-.answer-row button{min-width:0;padding:7px 8px;font-size:.64rem;letter-spacing:.04em}
+.answer-row button{min-width:0;padding:7px 8px;font-size:.64rem;letter-spacing:.04em;position:relative;z-index:5;pointer-events:auto}
 .msg{grid-column:1/-1;min-height:1.1em;margin:0;font-size:.64rem;line-height:1.2}
 </style>
 
@@ -395,6 +395,93 @@ html,body{overflow:hidden}
     min-height:auto;
   }
   .janken-screen{
+    padding:14px;
+  }
+}
+</style>
+
+
+<style id="target-v17">
+.target-page{
+  padding:clamp(18px,4vw,42px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:14px;
+}
+.target-machine{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(3,7,14,.74);
+  box-shadow:0 0 26px rgba(255,91,216,.09), inset 0 0 22px rgba(255,255,255,.02);
+  overflow:hidden;
+}
+.target-screen{
+  padding:18px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(90deg, rgba(255,91,216,.10), rgba(85,215,255,.08));
+}
+.target-screen p{
+  margin:0 0 6px;
+  line-height:1.65;
+}
+.target-columns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:14px;
+}
+.target-box{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.25);
+  padding:12px;
+}
+.target-box h3{
+  margin:0 0 10px;
+  font-size:1rem;
+  color:#fffafd;
+  text-shadow:0 0 12px rgba(85,215,255,.22);
+}
+.target-list{
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.target-list li{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:6px 0;
+  border-bottom:1px dashed rgba(255,255,255,.10);
+  line-height:1.5;
+  color:#eee9ff;
+}
+.target-list li:last-child{
+  border-bottom:none;
+}
+.target-answer{
+  border:1px solid rgba(255,255,255,.13);
+  background:rgba(3,7,14,.74);
+  padding:12px;
+}
+.target-answer .input{
+  margin-top:7px;
+}
+.target-answer .buttons{
+  margin-top:10px;
+}
+.target-answer button{
+  min-width:0;
+}
+@media(max-width:560px){
+  .target-page{
+    padding:14px;
+    justify-content:flex-start;
+    overflow:auto;
+  }
+  .target-columns{
+    grid-template-columns:1fr;
+  }
+  .target-screen{
     padding:14px;
   }
 }
@@ -493,7 +580,7 @@ function renderPuzzle() {
               <div class="op-row"><span class="num">2</span><span class="arrows">↑↑→→→</span></div>
               <div class="op-row"><span class="num">3</span><span class="arrows">→→→</span></div>
               <div class="op-row"><span class="num">4</span><span class="arrows">→</span></div>
-              <div class="op-row"><span class="num">5</span><span class="arrows">↑↑→→</span></div>
+              <div class="op-row"><span class="num">5</span><span class="arrows">↑→→</span></div>
             </div>
           </section>
           <section class="card">
@@ -506,22 +593,13 @@ function renderPuzzle() {
               <div class="count-row"><span class="animal">いたち</span><span class="count">3</span></div>
             </div>
           </section>
-          <section class="card answer-card">
-            <p class="instruction">こたえはひらがなで入力してください。</p>
-            <input class="input" id="answer" placeholder="こたえ">
-            <div class="buttons">
-              <button onclick="checkAnswer()">送信</button>
-              <button onclick="showHint()">ヒント</button>
-            </div>
-            <div class="msg" id="msg"></div>
-          </section>
-        </aside>
+</aside>
       </div>
       <section class="answer-row">
         <p class="instruction">こたえはひらがなで入力してください。</p>
         <input class="input" id="answer" placeholder="こたえ">
-        <button onclick="checkAnswer()">送信</button>
-        <button onclick="showHint()">ヒント</button>
+        <button type="button" onclick="checkAnswer()">送信</button>
+        <button type="button" onclick="showHint()">ヒント</button>
         <div class="msg" id="msg"></div>
       </section>
     </section>
@@ -600,8 +678,8 @@ function renderJanken() {
         <p class="note-small">こたえはぐー、ちょき、ぱーから選んでひらがなで入力</p>
         <input class="input" id="jankenAnswer" placeholder="ぐー / ちょき / ぱー">
         <div class="buttons">
-          <button onclick="checkJanken()">送信</button>
-          <button onclick="showJankenHint()">ヒント</button>
+          <button type="button" onclick="checkJanken()">送信</button>
+          <button type="button" onclick="showJankenHint()">ヒント</button>
         </div>
         <div class="msg" id="jankenMsg"></div>
       </section>
@@ -645,6 +723,119 @@ function showJankenClear() {
       <p>景品口が開く。中には、やけに軽い景品がひとつだけ入っている。</p>
       <p>手を伸ばすと、画面の光が一度だけ強くなった。</p>
       <div class="bracket">勝ったら終わり。<br>でも、奥はまだ暗い。</div>
+      <div class="buttons"><button class="full" onclick="showTargetIntro()">奥へ進む</button></div>
+    </section>
+  `);
+}
+
+
+
+function showTargetIntro() {
+  setView(`
+    <section class="page">
+      <div class="label">第三遊戯室</div>
+      <h2>的当てゲーム</h2>
+      <p>少し進むと、的の並んだ古いゲーム機があった。</p>
+      <p>球を当てるだけの、単純な機械。なのに、画面にはただ点数が表示されているだけで、妙に静かだった。</p>
+      <p>高い点を出せばいいわけじゃない。記録を更新できれば、それで景品がもらえるらしい。</p>
+      <p>必要なのは大勝ちじゃなくて、前にいた誰かを、ほんの少しだけ越えることだった。</p>
+      <div class="buttons"><button class="full" onclick="renderTargetPuzzle()">謎を見る</button></div>
+    </section>
+  `);
+}
+
+function renderTargetPuzzle() {
+  setView(`
+    <section class="page target-page">
+      <div>
+        <div class="label">第三遊戯室</div>
+        <h2>的当てゲーム</h2>
+        <p>画面には、古い注意書きが残っていた。</p>
+      </div>
+
+      <div class="target-machine">
+        <div class="target-screen">
+          <p>最高記録：155点</p>
+          <p>記録更新で景品プレゼント</p>
+          <p>ただし、景品がほしいなら <strong>最短で記録を更新してください。</strong></p>
+        </div>
+
+        <div class="target-columns">
+          <section class="target-box">
+            <h3>的の点数</h3>
+            <ul class="target-list">
+              <li><span>あか</span><span>60点</span></li>
+              <li><span>あお</span><span>55点</span></li>
+              <li><span>きいろ</span><span>45点</span></li>
+              <li><span>みどり</span><span>40点</span></li>
+              <li><span>しろ</span><span>25点</span></li>
+            </ul>
+          </section>
+
+          <section class="target-box">
+            <h3>壊れた照準のメモ</h3>
+            <ul class="target-list">
+              <li><span>あかを打つと</span><span>次は しろ / みどり</span></li>
+              <li><span>あおを打つと</span><span>次は あか / みどり</span></li>
+              <li><span>きいろを打つと</span><span>次は あお / しろ</span></li>
+              <li><span>みどりを打つと</span><span>次は きいろ / しろ</span></li>
+              <li><span>しろを打つと</span><span>次は みどり</span></li>
+              <li><span>ルール</span><span>同じ色は1ゲームで1回しか打てない</span></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <section class="target-answer">
+        <p class="note-small">こたえは、打ちたい色をひらがなでスペースを開けずに入力してください。</p>
+        <p class="note-small">例：あかあかあか</p>
+        <input class="input" id="targetAnswer" placeholder="こたえ">
+        <div class="buttons">
+          <button type="button" onclick="checkTarget()">送信</button>
+          <button type="button" onclick="showTargetHint()">ヒント</button>
+        </div>
+        <div class="msg" id="targetMsg"></div>
+      </section>
+    </section>
+  `);
+  document.getElementById("targetAnswer").addEventListener("keydown", e => {
+    if(e.key === "Enter") checkTarget();
+  });
+}
+
+function normalizeTarget(value) {
+  return value.replace(/\s/g,"").replace(/[ァ-ン]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0x60));
+}
+
+function checkTarget() {
+  const msg = document.getElementById("targetMsg");
+  const v = normalizeTarget(document.getElementById("targetAnswer").value);
+  if(v === "きいろあおあか") {
+    msg.textContent = "正解。記録表示が、ひとつだけ塗り替わった。";
+    msg.className = "msg ok";
+    setTimeout(showTargetClear, 800);
+  } else {
+    msg.textContent = "まだ違うみたい。最短回数と「更新」の意味に気をつけて。";
+    msg.className = "msg ng";
+  }
+}
+
+function showTargetHint() {
+  const msg = document.getElementById("targetMsg");
+  msg.textContent = "2回では届きません。3回で155点を「超える」ルートを探してください。同点は更新ではありません。";
+  msg.className = "msg";
+}
+
+function showTargetClear() {
+  setView(`
+    <section class="page">
+      <div class="label">第三遊戯室 / CLEAR</div>
+      <h2>きいろあおあか</h2>
+      <p>最後の的が倒れると、機械の中で、乾いた音がひとつだけ響いた。</p>
+      <p>画面の数字が書き換わる。大きく勝ったわけじゃない。けれど、前の記録は確かに越えていた。</p>
+      <p>ほんの少しだけ上に行く。それだけのことなのに、景品口はちゃんと開いた。</p>
+      <p>中に入っていた景品は軽くて、拍子抜けするくらいあっけなかった。</p>
+      <div class="bracket">ほしかったのは景品じゃなくて、<br>越えた、という事実の方だったのかもしれない。</div>
       <div class="buttons"><button class="full" onclick="renderTitle()">タイトルへ</button></div>
     </section>
   `);
