@@ -487,6 +487,215 @@ html,body{overflow:hidden}
 }
 </style>
 
+
+<style id="janken-scroll-fix-v20">
+/* ジャンケンページだけ、画面内で縦スクロールできるようにする */
+.janken-page{
+  height:calc(100svh - 20px);
+  justify-content:flex-start !important;
+  overflow-y:auto !important;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:34px !important;
+}
+
+/* パツパツ感を減らす */
+.janken-page > div:first-child{
+  flex:0 0 auto;
+}
+.janken-page .janken-machine,
+.janken-page .janken-answer{
+  flex:0 0 auto;
+}
+.janken-page .janken-screen{
+  padding:16px 18px;
+}
+.janken-page .janken-buttons{
+  gap:12px;
+}
+.janken-page .janken-btn-card{
+  min-height:120px;
+}
+.janken-page .janken-answer{
+  margin-bottom:18px;
+}
+
+/* スマホでは縦積みにして、読みやすくスクロール */
+@media(max-width:560px){
+  .janken-page{
+    height:calc(100svh - 12px);
+    padding:16px 14px 42px !important;
+    gap:16px;
+  }
+  .janken-page h2{
+    margin-bottom:12px;
+  }
+  .janken-page p{
+    line-height:1.75;
+  }
+  .janken-buttons{
+    grid-template-columns:1fr !important;
+    gap:12px;
+    padding:14px;
+  }
+  .janken-btn-card{
+    min-height:auto !important;
+    padding:16px 14px;
+  }
+  .janken-letter{
+    margin-bottom:10px;
+  }
+  .janken-answer{
+    padding:14px;
+  }
+  .janken-answer .buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+}
+</style>
+
+
+<style id="janken-answer-visible-v21">
+/* ジャンケンだけ、回答欄が必ず見える余裕を作る */
+.janken-page{
+  height:calc(100svh - 12px) !important;
+  max-height:calc(100svh - 12px) !important;
+  overflow-y:auto !important;
+  -webkit-overflow-scrolling:touch;
+  justify-content:flex-start !important;
+  padding:14px 14px 80px !important;
+  gap:12px !important;
+}
+.janken-page .janken-machine{
+  flex:0 0 auto !important;
+}
+.janken-page .janken-buttons{
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  padding:10px !important;
+  gap:8px !important;
+}
+.janken-page .janken-btn-card{
+  min-height:auto !important;
+  padding:12px 10px !important;
+}
+.janken-page .janken-letter{
+  font-size:1.25rem !important;
+  margin-bottom:8px !important;
+}
+.janken-page .janken-speech{
+  font-size:.86rem !important;
+  line-height:1.5 !important;
+}
+.janken-answer.visible-answer{
+  display:block !important;
+  flex:0 0 auto !important;
+  position:relative !important;
+  z-index:20 !important;
+  margin:0 0 34px !important;
+  padding:14px !important;
+  border:1px solid rgba(255,255,255,.22) !important;
+  background:rgba(3,7,14,.92) !important;
+}
+.janken-answer.visible-answer .input{
+  display:block !important;
+  width:100% !important;
+  min-height:42px !important;
+  margin-top:8px !important;
+  position:relative !important;
+  z-index:21 !important;
+}
+.janken-answer.visible-answer .buttons{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px !important;
+}
+.janken-answer.visible-answer button{
+  position:relative !important;
+  z-index:21 !important;
+  pointer-events:auto !important;
+}
+
+@media(max-width:560px){
+  .janken-page .janken-buttons{
+    grid-template-columns:1fr !important;
+  }
+}
+</style>
+
+
+<style id="target-scroll-answer-fix-v22">
+/* 的当てページも、ジャンケンと同じようにスクロール＋回答欄を見える位置に */
+.target-page{
+  height:calc(100svh - 12px) !important;
+  max-height:calc(100svh - 12px) !important;
+  overflow-y:auto !important;
+  -webkit-overflow-scrolling:touch;
+  justify-content:flex-start !important;
+  padding:14px 14px 80px !important;
+  gap:12px !important;
+}
+.target-page .target-machine{
+  flex:0 0 auto !important;
+}
+.target-page .target-screen{
+  padding:14px 16px !important;
+}
+.target-page .target-columns{
+  grid-template-columns:1fr 1fr !important;
+  padding:10px !important;
+  gap:10px !important;
+}
+.target-page .target-box{
+  padding:10px !important;
+}
+.target-page .target-box h3{
+  font-size:.92rem !important;
+  margin-bottom:8px !important;
+}
+.target-page .target-list li{
+  padding:4px 0 !important;
+  font-size:.82rem !important;
+  line-height:1.4 !important;
+}
+.target-answer{
+  display:block !important;
+  flex:0 0 auto !important;
+  position:relative !important;
+  z-index:20 !important;
+  margin:0 0 34px !important;
+  padding:14px !important;
+  border:1px solid rgba(255,255,255,.22) !important;
+  background:rgba(3,7,14,.92) !important;
+}
+.target-answer .input{
+  display:block !important;
+  width:100% !important;
+  min-height:42px !important;
+  margin-top:8px !important;
+  position:relative !important;
+  z-index:21 !important;
+}
+.target-answer .buttons{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px !important;
+}
+.target-answer button{
+  position:relative !important;
+  z-index:21 !important;
+  pointer-events:auto !important;
+}
+
+@media(max-width:560px){
+  .target-page .target-columns{
+    grid-template-columns:1fr !important;
+  }
+  .target-page{
+    padding:16px 14px 90px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div id="view"></div>
@@ -673,7 +882,7 @@ function renderJanken() {
         </div>
       </div>
 
-      <section class="janken-answer">
+      <section class="janken-answer visible-answer">
         <p class="note-small">景品を出す手を入力してください。</p>
         <p class="note-small">こたえはぐー、ちょき、ぱーから選んでひらがなで入力</p>
         <input class="input" id="jankenAnswer" placeholder="ぐー / ちょき / ぱー">
